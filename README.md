@@ -7,7 +7,7 @@ The Realm developers claim that their data storage solution is faster than _SQLi
 ### Problem
 Our company has used _Realm_ as a local data storage in _iOS_.
 Recently, I came across a problem after I modified our model's properties.
-Our app crashed and the console output told me `Migration is required due to the following errors:`.
+Our app crashed and _Xcode_'s console output told me `Migration is required due to the following errors:`.
 In order to solve this issue, I read _Realm_'s documentations as well as online resources and figured out how to implement several lightweight migrations.
 
 ### Solution
@@ -20,7 +20,7 @@ let config = Realm.Configuration(
   // version (if you've never set a schema version before, the version is 0).
   schemaVersion: 1,
   migrationBlock: { migration, oldSchemaVersion in
-    if (oldSchemaVersion < 1) {
+    if oldSchemaVersion < 1 {
       // Apply any necessary migration logic here.
     }
   })
@@ -63,7 +63,7 @@ if oldSchemaVersion < 2 {
 }
 ```
 Finally, I would like to separate the `fullName` property into `firstName` and `lastName`.
-The migration is very similar to what we've done when adding the email property.
+The migration is very similar to what we've done when adding the `email` property.
 I enumerate each `Person` and apply any necessary migration logic.
 Don't forget to increase the schema version as well.
 ```
@@ -83,7 +83,7 @@ if oldSchemaVersion < 3 {
     }
 }
 ```
-The sample project is [here]().
+The sample project is [here](https://github.com/ShengHuaWu/RealmMigration).
 
 ### Conclusion
 Frankly speaking, _Realm_ is a great solution for data storage and its documentations are very comprehensive.
